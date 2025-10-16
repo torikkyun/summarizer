@@ -14,7 +14,7 @@ def main():
     VietAI/vietbart-news
     VietAI/viett5-base
     """
-    summarizer = AbstractiveSummarizer(model_name="VietAI/viett5-base")
+    summarizer = AbstractiveSummarizer(model_name="facebook/bart-large-cnn")
     summary = summarizer.summarize(text)
     print("Summary: ")
     print(summary)
