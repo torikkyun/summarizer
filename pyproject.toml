@@ -6,6 +6,8 @@ readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
     "beautifulsoup4>=4.14.2",
+    "datasets>=4.2.0",
+    "huggingface-hub[hf-xet]>=0.35.3",
     "networkx>=3.5",
     "numpy>=2.3.4",
     "scikit-learn>=1.7.2",
