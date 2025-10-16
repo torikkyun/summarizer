@@ -1,0 +1,16 @@
+[project]
+name = "summarizer"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "beautifulsoup4>=4.14.2",
+    "networkx>=3.5",
+    "numpy>=2.3.4",
+    "scikit-learn>=1.7.2",
+    "sentencepiece>=0.2.1",
+    "torch>=2.9.0",
+    "transformers>=4.57.1",
+    "underthesea>=8.3.0",
+]
