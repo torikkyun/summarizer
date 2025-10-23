@@ -7,6 +7,8 @@ from google.generativeai.client import configure
 from google.generativeai.generative_models import GenerativeModel
 from rouge_score import rouge_scorer
 import os
+import matplotlib.pyplot as plt
+import numpy as np
 
 load_dotenv()
 
@@ -30,7 +32,7 @@ def gemini_summarize(text):
 
 
 results = []
-for item in data[:10]:
+for item in data[:3]:
     text = item.get("text")
     reference = item.get("summary")
 
@@ -76,3 +78,81 @@ for r in results:
     print(f"ROUGE-1: {r['rouge1']}")
     print(f"ROUGE-L: {r['rougeL']}")
     print("-" * 50)
+
+# Chuẩn bị dữ liệu cho biểu đồ
+models = ["Abstractive", "TextRank", "Gemini"]
+rouge1_scores = [
+    [
+        r["rouge1"]["abstractive"],
+        r["rouge1"]["textrank"],
+        r["rouge1"]["gemini"],
+    ]
+    for r in results
+]
+rougeL_scores = [
+    [
+        r["rougeL"]["abstractive"],
+        r["rougeL"]["textrank"],
+        r["rougeL"]["gemini"],
+    ]
+    for r in results
+]
+
+titles = [
+    r["title"] if r["title"] else f"Sample {i+1}"
+    for i, r in enumerate(results)
+]
+x = np.arange(len(titles))  # vị trí các mẫu
+
+width = 0.25  # độ rộng cột
+
+fig, ax = plt.subplots(figsize=(10, 6))
+rects1 = ax.bar(
+    x - width,
+    [score[0] for score in rouge1_scores],
+    width,
+    label="Abstractive ROUGE-1",
+)
+rects2 = ax.bar(
+    x, [score[1] for score in rouge1_scores], width, label="TextRank ROUGE-1"
+)
+rects3 = ax.bar(
+    x + width,
+    [score[2] for score in rouge1_scores],
+    width,
+    label="Gemini ROUGE-1",
+)
+
+ax.set_ylabel("ROUGE-1 F1 Score")
+ax.set_title("So sánh ROUGE-1 giữa các mô hình")
+ax.set_xticks(x)
+ax.set_xticklabels(titles, rotation=45, ha="right")
+ax.legend()
+plt.tight_layout()
+plt.show()
+
+# Vẽ biểu đồ ROUGE-L
+fig, ax = plt.subplots(figsize=(10, 6))
+rects1 = ax.bar(
+    x - width,
+    [score[0] for score in rougeL_scores],
+    width,
+    label="Abstractive ROUGE-L",
+)
+rects2 = ax.bar(
+    x, [score[1] for score in rougeL_scores], width, label="TextRank ROUGE-L"
+)
+rects3 = ax.bar(
+    x + width,
+    [score[2] for score in rougeL_scores],
+    width,
+    label="Gemini ROUGE-L",
+)
+
+ax.set_ylabel("ROUGE-L F1 Score")
+ax.set_title("So sánh ROUGE-L giữa các mô hình")
+ax.set_xticks(x)
+ax.set_xticklabels(titles, rotation=45, ha="right")
+ax.legend()
+plt.tight_layout()
+plt.show()

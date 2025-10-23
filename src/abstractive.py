@@ -9,7 +9,7 @@ class AbstractiveSummarizer:
     def __init__(self, model_name="facebook/bart-large-cnn"):
         self.summarizer = pipeline("summarization", model=model_name)
 
-    def summarize(self, text, max_length=130, min_length=30):
+    def summarize(self, text, max_length=512, min_length=30):
         """
         Tóm tắt văn bản sử dụng mô hình Abstractive
 
