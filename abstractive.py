@@ -11,8 +11,6 @@ def main():
     facebook/bart-large-cnn
     google/pegasus-xsum
     google-t5/t5-base
-    VietAI/vietbart-news
-    VietAI/viett5-base
     """
     summarizer = AbstractiveSummarizer(model_name="facebook/bart-large-cnn")
     summary = summarizer.summarize(text)
