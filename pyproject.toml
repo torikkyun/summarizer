@@ -16,6 +16,8 @@ dependencies = [
     "rouge-score>=0.1.2",
     "scikit-learn>=1.7.2",
     "sentencepiece>=0.2.1",
+    "streamlit>=1.51.0",
     "torch>=2.9.0",
     "transformers>=4.57.1",
+    "underthesea>=8.3.0",
 ]
